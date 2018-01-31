@@ -25,7 +25,7 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
-        <li class="sidebar-brand"><a href="#">Start Bootstrap</a></li>
+        <li class="sidebar-brand">Neighborhood App</li>
         <li><a href="#">Dashboard</a></li>
         <li><a href="#">Shortcuts</a></li>
         <li><a href="#">Overview</a></li>
@@ -40,8 +40,10 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class="container-fluid">
+
+        <a href="#menu-toggle" class="btn btn-success" id="menu-toggle">Toggle Menu</a>
         <div id="map"></div>
-        <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+
       </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -53,8 +55,8 @@
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
 
-  <!-- Bootstrap core JavaScript -->
-  
+  <!-- Google Maps API -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAsxmy2aJkDMgfnnBDaGlD6iRbzW6XiBe4&callback=initMap"></script>
 
   <!-- Menu Toggle Script -->
   <script>
@@ -62,6 +64,16 @@
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+  </script>
+
+  <!-- Load initMap function for Google Maps -->
+  <script>
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: {lat: -34.397, lng: 150.644}
+    });
+  }
   </script>
 
 </body>
