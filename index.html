@@ -2,26 +2,19 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
   <title>Neighborhood App</title>
-
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Custom styles for this template -->
   <link href="css/simple-sidebar.css" rel="stylesheet">
-
 </head>
 
 <body>
-
   <div id="wrapper">
-
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
@@ -35,40 +28,29 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class="container-fluid">
-
         <a href="#menu-toggle" class="btn btn-success" id="menu-toggle">Toggle Menu</a>
         <div id="map"></div>
-
       </div>
     </div>
     <!-- /#page-content-wrapper -->
-
   </div>
   <!-- /#wrapper -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-
   <!-- Google Maps API -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAsxmy2aJkDMgfnnBDaGlD6iRbzW6XiBe4&callback=initMap"></script>
-
+  <!-- knockout-3 -->
+  <script src="js/knockout-3.2.0.js"></script>
+  <!-- Script for Google API -->
+  <script src="js/script.js"></script>
   <!-- Menu Toggle Script -->
   <script>
     $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
-  </script>
-
-  <!-- Load initMap function for Google Maps -->
-  <script>
-  function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: {lat: -34.397, lng: 150.644}
-    });
-  }
   </script>
 
 </body>
