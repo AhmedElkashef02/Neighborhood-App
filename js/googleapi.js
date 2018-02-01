@@ -13,8 +13,7 @@ var locations = [
   {title: 'HSBC ATM', location: {lat:29.994429, lng: 31.159993}},
   {title: 'AlHaram Hospital', location: {lat: 29.993368, lng: 31.160473}},
   {title: 'Shopping Mall', location: {lat:29.994262, lng: 31.160438}},
-  {title: 'Wang Fu Restaurant', location: {lat:29.993836, lng: 31.159316}},
-  {title: 'Abo Hamada SuperMarket', location: {lat:29.994014, lng: 31.158626}},
+  {title: 'Wang Fu Restaurant', location: {lat:29.993836, lng: 31.159316}}
 ];
 
 // New Array that will hold the listings of the markers
@@ -30,15 +29,19 @@ function initMap() {
 
   var InfoWindow = new google.maps.InfoWindow();
 
+  // Creating new markers for all locations
   for (var i = 0; i < locations.length; i++) {
     var position = locations[i].location;
     var title = locations[i].title;
+    // create marker
     var marker = new google.maps.Marker({
       position: position,
       title: title,
       animation: google.maps.Animation.DROP,
       id: i
     });
+
+    // Push markers to the marker array
     markers.push(marker);
     marker.addListener('click', function() {
       //populateInfoWindow(this, largeInfowindow);
@@ -54,5 +57,5 @@ function showListings() {
     markers[i].setMap(map);
     bounds.extend(markers[i].position);
   }
-  //map.fitBounds(bounds);
+  map.fitBounds(bounds);
 }

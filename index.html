@@ -20,8 +20,13 @@
       <ul class="sidebar-nav">
         <li class="sidebar-brand">Neighborhood App</li>
         <li><input type="text" placeholder="Enter a Filter"></li>
-        <li><a href="#">Dashboard</a></li>
+        <span data-bind="foreach: locations">
+          <li><a data-bind="text: $data.title"></a></li>
+        </span>
       </ul>
+      <!--<ul class="sidebar-nav" data-bind="foreach: locations">
+        <li><a data-bind="text: $data.title"></a></li>
+      </ul>-->
     </div>
     <!-- /#sidebar-wrapper -->
 
