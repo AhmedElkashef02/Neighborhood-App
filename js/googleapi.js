@@ -5,7 +5,7 @@ var locations = [
   {title: 'Spectra Restaurant & Cafe', location: {lat: 29.993909, lng: 31.160769}},
   {title: 'HSBC Bank Egypt', location: {lat: 29.994082, lng: 31.161756}},
   {title: 'Hardees Restaurant', location: {lat: 29.994366, lng: 31.160844}},
-  {title: 'Mobile Shop', location: {lat: 29.994581, lng: 31.161093}},
+  {title: 'Mobile Shop', location: {lat:29.994541, lng: 31.161083}},
   {title: 'Metro Market', location: {lat: 29.994368, lng: 31.16008931}},
   {title: 'Kebda Fathy', location: {lat: 29.994366, lng: 31.159492}},
   {title: 'BiscoMisr Haram', location: {lat: 29.995045, lng: 31.160481}},
@@ -21,7 +21,7 @@ var markers = [];
 
 function initMap() {
   // Create an InfoWindow
-  var InfoWindow = new google.maps.InfoWindow();
+  var largeInfowindow = new google.maps.InfoWindow();
   // Create a new map
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 29.9942453, lng: 31.1604205},
@@ -41,7 +41,7 @@ function initMap() {
       this.setAnimation(4);
     });
     marker.addListener('click', function() {
-      //populateInfoWindow(this, largeInfowindow);
+      populateInfoWindow(this, largeInfowindow);
     });
   }
   showListings();
@@ -56,4 +56,17 @@ function showListings() {
     bounds.extend(markers[i].position);
   }
   map.fitBounds(bounds);
+}
+
+function populateInfoWindow(marker, infowindow) {
+  // Check to make sure the infowindow is not already opened on this marker.
+  if (infowindow.marker != marker) {
+    infowindow.marker = marker;
+    infowindow.setContent('<div>' + marker.title + '</div>');
+    infowindow.open(map, marker);
+    // Make sure the marker property is cleared if the infowindow is closed.
+    infowindow.addListener('closeclick', function() {
+      infowindow.marker = null;
+    });
+  }
 }
