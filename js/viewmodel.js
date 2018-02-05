@@ -19,6 +19,10 @@ function ViewModel() {
   var self = this;
   this.markers = [];
 
+  this.filtration = function(event) {
+    
+  }
+
   this.populateInfoWindow = function(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
@@ -32,7 +36,7 @@ function ViewModel() {
     }
   }
 
-  this.populateAndBounceMarker = function(event) {
+  this.openFromList = function(event) {
     for(var i = 0; i < self.markers.length; i++) {
       if (self.markers[i].title == event.title) {
         this.marker = self.markers[i];

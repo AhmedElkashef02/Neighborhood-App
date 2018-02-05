@@ -4,10 +4,17 @@ body {
 }
 
 input {
-  display: block;
-  width: 100%;
-  padding-left: 15px;
-  display:block;
+    display: block;
+    width: 70%;
+    padding-left: 15px;
+    display: inline;
+}
+
+#search-input {
+  text-indent: 0;
+}
+#search-button {
+  width: 30%;
 }
 
 #wrapper {
