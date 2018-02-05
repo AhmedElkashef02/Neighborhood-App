@@ -32,6 +32,20 @@ function ViewModel() {
     }
   }
 
+  this.populateAndBounceMarker = function(event) {
+    for(var i = 0; i < self.markers.length; i++) {
+      if (self.markers[i].title == event.title) {
+        this.marker = self.markers[i];
+        break;
+      }
+    }
+        self.populateInfoWindow(this.marker, self.largeInfoWindow);
+        this.marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout((function() {
+            this.marker.setAnimation(null);
+        }).bind(this), 700);
+    };
+
   this.showListings = function() {
     this.bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
