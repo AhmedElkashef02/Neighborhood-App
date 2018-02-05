@@ -20,6 +20,16 @@ function ViewModel() {
   var self = this;
   this.markers = [];
 
+  this.showListings = function() {
+    this.bounds = new google.maps.LatLngBounds();
+    // Extend the boundaries of the map for each marker and display the marker
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(map);
+      this.bounds.extend(this.markers[i].position);
+    }
+    map.fitBounds(this.bounds);
+  };
+
   this.initMap = function() {
     // Create an InfoWindow
     this.largeInfowindow = new google.maps.InfoWindow();
@@ -50,7 +60,7 @@ function ViewModel() {
         decideInfoWindow(this.largeInfowindow, this);
       });
     }
-    //showListings();
+    this.showListings();
   };
 
   this.initMap();
@@ -63,6 +73,7 @@ function ViewModel() {
       wrapperClasses.add("toggled");
     }
   };
+
 }
 
 function fireApp() {
