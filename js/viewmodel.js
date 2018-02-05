@@ -18,9 +18,16 @@ var locations = [
 function ViewModel() {
   var self = this;
   this.markers = [];
+  this.searchTerm = ko.observable('');
 
-  this.filtration = function(event) {
-    
+  this.printName = function() {
+        var currentsearchTerm = this.searchTerm();
+        console.log(currentsearchTerm);
+    }
+
+  this.filtration = function(data,event) {
+    console.log(event);
+    console.log(data);
   }
 
   this.populateInfoWindow = function(marker, infowindow) {

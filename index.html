@@ -19,7 +19,7 @@
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand">Neighborhood App</li>
-        <li id="search-input"><input type="text" placeholder="Enter a Filter"><button class="btn=primary" id="search-button">Search</button></li>
+        <li id="search-input"><input type="text" placeholder="Enter a Filter" data-bind="value: searchTerm, text: searchTerm"><button class="btn=primary" id="search-button" data-bind="click: printName">Search</button></li>
           <span data-bind="foreach: locations">
               <li><a data-bind="text: title, click: $parent.openFromList"></a></li> <!--add data-bind="click: function that populates infowindow"-->
           </span>
