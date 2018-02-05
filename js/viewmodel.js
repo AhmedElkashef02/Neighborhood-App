@@ -15,19 +15,38 @@ var locations = [
   {title: 'Shopping Mall', location: {lat:29.994262, lng: 31.160438}},
   {title: 'Wang Fu Restaurant', location: {lat:29.993836, lng: 31.159316}}
 ];
+
+var undesiredLocations = [];
+
 function ViewModel() {
   var self = this;
   this.markers = [];
   this.searchTerm = ko.observable('');
+  this.filteredLocations = ko.observableArray(locations);
 
-  this.printName = function() {
-        var currentsearchTerm = this.searchTerm();
-        console.log(currentsearchTerm);
+
+  this.filtration = function() {
+    var currentsearchTerm = this.searchTerm();
+    this.filteredLocations([]);
+    console.log(currentsearchTerm);
+    // loop through list and make filtered list
+    for (var i = 0; i < locations.length; i++) {
+      if (locations[i].title.indexOf(currentsearchTerm) !== -1) {
+        this.filteredLocations.push(locations[i]);
+      } else {
+        undesiredLocations.push(locations[i]);
+      }
     }
+    // remove the undesiredLocations markers
+    for (var i = 0; i < this.markers.length; i++) {
+      for(var j = 0; j < undesiredLocations.length; j++) {
+        if (self.markers[i].title == undesiredLocations[j].title) {
+          this.markers[i].setMap(null);
+        }
+      }
+    }
+    // replace the list items with the desired list
 
-  this.filtration = function(data,event) {
-    console.log(event);
-    console.log(data);
   }
 
   this.populateInfoWindow = function(marker, infowindow) {
@@ -67,6 +86,17 @@ function ViewModel() {
     map.fitBounds(this.bounds);
   };
 
+  this.hideListings = function() {
+    //this.showListings();
+    for (var i = 0; i < this.markers.length; i++) {
+      for(var j = 0; j < undesiredLocations.length; j++) {
+        if (self.markers[i].title == undesiredLocations[j].title) {
+          this.markers[i].setMap(null);
+        }
+      }
+    }
+  };
+
   this.initMap = function() {
     // Create an InfoWindow
     this.largeInfoWindow = new google.maps.InfoWindow();
@@ -98,6 +128,7 @@ function ViewModel() {
         self.populateInfoWindow(this, self.largeInfoWindow);
       });
     }
+
     this.showListings();
   };
 
