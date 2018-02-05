@@ -60,9 +60,6 @@ function showListings() {
 
 // intermediary function to just use one infowindow
 this.decideInfoWindow = function(infowindow, event, marker = 0) {
-  console.log("infowindow:",infowindow);
-  console.log("event:",event);
-  console.log("marker",marker);
   if (event) { // if clicked from sidebar
     //use event and infowindow
     for(var i = 0; i < markers.length; i++) {

@@ -15,10 +15,22 @@ var locations = [
   {title: 'Shopping Mall', location: {lat:29.994262, lng: 31.160438}},
   {title: 'Wang Fu Restaurant', location: {lat:29.993836, lng: 31.159316}}
 ];
-
 function ViewModel() {
   var self = this;
   this.markers = [];
+
+  this.populateInfoWindow = function(marker, infowindow) {
+    // Check to make sure the infowindow is not already opened on this marker.
+    if (infowindow.marker != marker) {
+      infowindow.marker = marker;
+      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.open(map, marker);
+      // Make sure the marker property is cleared if the infowindow is closed.
+      infowindow.addListener('closeclick', function() {
+        infowindow.marker = null;
+      });
+    }
+  }
 
   this.showListings = function() {
     this.bounds = new google.maps.LatLngBounds();
@@ -32,7 +44,7 @@ function ViewModel() {
 
   this.initMap = function() {
     // Create an InfoWindow
-    this.largeInfowindow = new google.maps.InfoWindow();
+    this.largeInfoWindow = new google.maps.InfoWindow();
     // Create a new map
     map = new google.maps.Map(document.getElementById('map'), {
       center: {
@@ -56,8 +68,9 @@ function ViewModel() {
       this.marker.addListener('click', function() {
         this.setAnimation(4);
       });
+      // add an infowindow populator function
       this.marker.addListener('click', function() {
-        decideInfoWindow(this.largeInfowindow, this);
+        self.populateInfoWindow(this, self.largeInfoWindow);
       });
     }
     this.showListings();
@@ -77,5 +90,5 @@ function ViewModel() {
 }
 
 function fireApp() {
-    ko.applyBindings(new ViewModel());
+  ko.applyBindings(new ViewModel());
 };
