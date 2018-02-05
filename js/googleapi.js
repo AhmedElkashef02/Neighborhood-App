@@ -21,7 +21,7 @@ var markers = [];
 
 function initMap() {
   // Create an InfoWindow
-  var largeInfowindow = new google.maps.InfoWindow();
+  this.largeInfowindow = new google.maps.InfoWindow();
   // Create a new map
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 29.9942453, lng: 31.1604205},
@@ -41,7 +41,7 @@ function initMap() {
       this.setAnimation(4);
     });
     marker.addListener('click', function() {
-      populateInfoWindow(this, largeInfowindow);
+      decideInfoWindow(largeInfowindow, this);
     });
   }
   showListings();
@@ -58,15 +58,39 @@ function showListings() {
   map.fitBounds(bounds);
 }
 
-function populateInfoWindow(marker, infowindow) {
-  // Check to make sure the infowindow is not already opened on this marker.
-  if (infowindow.marker != marker) {
-    infowindow.marker = marker;
-    infowindow.setContent('<div>' + marker.title + '</div>');
-    infowindow.open(map, marker);
-    // Make sure the marker property is cleared if the infowindow is closed.
-    infowindow.addListener('closeclick', function() {
-      infowindow.marker = null;
-    });
+// intermediary function to just use one infowindow
+this.decideInfoWindow = function(infowindow, event, marker = 0) {
+  console.log("infowindow:",infowindow);
+  console.log("event:",event);
+  console.log("marker",marker);
+  if (event) { // if clicked from sidebar
+    //use event and infowindow
+    for(var i = 0; i < markers.length; i++) {
+      if(markers[i].title == event.title) {
+        var marker = markers[i];
+      }
+    }
+    if (this.largeInfowindow.marker != marker) {
+      console.log(infowindow);
+      this.largeInfowindow.marker = marker;
+      this.largeInfowindow.setContent('<div>' + marker.title + '</div>');
+      this.largeInfowindow.open(map, marker);
+      // Make sure the marker property is cleared if the infowindow is closed.
+      this.largeInfowindow.addListener('closeclick', function() {
+        this.largeInfowindow.marker = null;
+      });
+    }
+
+  } if (!event) { // if clicked on marker itself use marker and infowindow
+    populateInfoWindow(marker, this.largeInfowindow);
   }
+}
+
+function openMarker(event) {
+  for(var i = 0; i < markers.length; i++) {
+    if(markers[i].title == event.title) {
+      var marker = markers[i];
+    }
+  }
+  populateInfoWindow(marker, new google.maps.InfoWindow());
 }

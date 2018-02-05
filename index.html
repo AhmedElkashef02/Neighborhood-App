@@ -20,13 +20,11 @@
       <ul class="sidebar-nav">
         <li class="sidebar-brand">Neighborhood App</li>
         <li><input type="text" placeholder="Enter a Filter"></li>
-        <span data-bind="foreach: locations">
-          <li><a data-bind="text: $data.title"></a></li> <!-- add data-bind="click: do google maps function"-->
+          <span data-bind="foreach: locations">
+              <li><a data-bind="text: title, click: $parent.decideInfoWindow"></a></li> <!--add data-bind="click: do google maps function"-->
+          </span>
         </span>
       </ul>
-      <!--<ul class="sidebar-nav" data-bind="foreach: locations">
-        <li><a data-bind="text: $data.title"></a></li>
-      </ul>-->
     </div>
     <!-- /#sidebar-wrapper -->
 
@@ -44,14 +42,13 @@
   <!-- Bootstrap core JavaScript -->
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-  <!-- Google Maps API -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAsxmy2aJkDMgfnnBDaGlD6iRbzW6XiBe4&callback=initMap"></script>
   <!-- knockout-3 -->
   <script src="js/knockout-3.2.0.js"></script>
-  <!-- Script for Google API -->
-  <script src="js/googleapi.js"></script>
-  <!-- Script for Knockout MVVM Arecheticture -->
-  <script src="js/mvvm.js"></script>
+  <!-- Script for ViewModel -->
+  <script src="js/viewmodel.js"></script>
+  <!-- Google Maps API -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAsxmy2aJkDMgfnnBDaGlD6iRbzW6XiBe4&callback=fireApp"></script>
+  
 </body>
 
 </html>
