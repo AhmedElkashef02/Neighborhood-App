@@ -26,9 +26,10 @@ function ViewModel() {
 
 
   this.filtration = function() {
-    var currentsearchTerm = this.searchTerm();
+    this.showListings();
     this.filteredLocations([]);
-    console.log(currentsearchTerm);
+    undesiredLocations = [];
+    var currentsearchTerm = this.searchTerm();
     // loop through list and make filtered list
     for (var i = 0; i < locations.length; i++) {
       if (locations[i].title.indexOf(currentsearchTerm) !== -1) {
@@ -45,9 +46,9 @@ function ViewModel() {
         }
       }
     }
-    // replace the list items with the desired list
-
+    console.log(this.markers);
   }
+
 
   this.populateInfoWindow = function(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
