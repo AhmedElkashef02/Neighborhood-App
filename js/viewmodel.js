@@ -1,6 +1,5 @@
 var map;
 var client_id = "DCELDDX4LN3VCQOXUN2FW335P5NW0DBSJP1Y0WNQBQ2NRDXK";
-var client_secret = "QW4LY5G20P10F2E3LXXPPZOYL0KKPGZ1GABD30RZMP5AFZT0";
 
 var locations = [
   {title: 'Marhaba Restaurant', location: {lat: 29.995796, lng: 31.159291}},
@@ -41,14 +40,14 @@ function ViewModel() {
       }
     }
     // remove the undesiredLocations markers
-    for (var i = 0; i < this.markers.length; i++) {
+    for (var x = 0; x < this.markers.length; x++) {
       for(var j = 0; j < undesiredLocations.length; j++) {
-        if (self.markers[i].title == undesiredLocations[j].title) {
-          this.markers[i].setMap(null);
+        if (self.markers[x].title == undesiredLocations[j].title) {
+          this.markers[x].setMap(null);
         }
       }
     }
-  }
+  };
 
   //
   this.populateInfoWindow = function(marker, infowindow) {
@@ -82,7 +81,7 @@ function ViewModel() {
         // Send alert
         alert(
           "Sorry, the Foursquare API has experienced some errors. Please refresh your page to try again."
-        )
+        );
       });
       // End Of foursqaure API code
       infowindow.open(map, marker);
@@ -91,7 +90,7 @@ function ViewModel() {
         infowindow.marker = null;
       });
     }
-  }
+  };
 
   // Opens the same marker that was clicked on from the list
   this.openFromList = function(event) {
@@ -144,6 +143,9 @@ function ViewModel() {
       mapTypeControl: false
     });
     // Creating new markers for all locations
+    function clickTopopulate() {
+      self.populateInfoWindow(this, self.largeInfoWindow);
+    }
     for (var i = 0; i < locations.length; i++) {
       this.title = locations[i].title;
       this.position = locations[i].location;
@@ -158,9 +160,7 @@ function ViewModel() {
         this.setAnimation(4);
       });
       // add an infowindow populator function
-      this.marker.addListener('click', function() {
-        self.populateInfoWindow(this, self.largeInfoWindow);
-      });
+      this.marker.addListener('click', clickTopopulate);
     }
 
     this.showListings();
@@ -182,4 +182,4 @@ function ViewModel() {
 // applyBindings and fire the app
 function fireApp() {
   ko.applyBindings(new ViewModel());
-};
+}
