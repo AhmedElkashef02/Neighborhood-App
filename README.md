@@ -6,7 +6,7 @@ Neighborhood Map Project is the penulatimate course related project in Udacity's
 
 Clone or download this repo and open the index.html file in your browser. You can also do modification on the list of places in the viewmodel.js file and use your own locations on the app!
 
-## How to Use
+# How to Use:
 
 Neighboorhood Map application is fairly intuitive and simple to use. The general layout lets you click on any of the listed locations and it will animate on the map
 ![alt text](https://github.com/AhmedElkashef02/Neighborhood-App/blob/master/assets/general_layout.png)
@@ -16,7 +16,7 @@ You can also filter the list using a filter, just type your filter and click "Se
 ![alt text](https://github.com/AhmedElkashef02/Neighborhood-App/blob/master/assets/filter.png)
 
 
-## How is the Code Organized
+# How is the Code Organized:
 
 HTML: `index.html` Is the main HTML file for the project
 
