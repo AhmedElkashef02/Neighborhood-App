@@ -1,4 +1,6 @@
 var map;
+var client_id = "DCELDDX4LN3VCQOXUN2FW335P5NW0DBSJP1Y0WNQBQ2NRDXK";
+var client_secret = "QW4LY5G20P10F2E3LXXPPZOYL0KKPGZ1GABD30RZMP5AFZT0";
 
 var locations = [
   {title: 'Marhaba Restaurant', location: {lat: 29.995796, lng: 31.159291}},
@@ -9,7 +11,6 @@ var locations = [
   {title: 'Metro Market', location: {lat: 29.994368, lng: 31.16008931}},
   {title: 'Kebda Fathy', location: {lat: 29.994366, lng: 31.159492}},
   {title: 'BiscoMisr Haram', location: {lat: 29.995045, lng: 31.160481}},
-  {title: 'Aspats Private School', location: {lat: 29.993638, lng: 31.161312}},
   {title: 'HSBC ATM', location: {lat:29.994429, lng: 31.159993}},
   {title: 'AlHaram Hospital', location: {lat: 29.993368, lng: 31.160473}},
   {title: 'Shopping Mall', location: {lat:29.994262, lng: 31.160438}},
@@ -46,15 +47,41 @@ function ViewModel() {
         }
       }
     }
-    console.log(this.markers);
   }
 
 
   this.populateInfoWindow = function(marker, infowindow) {
-    // Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker != marker) {
-      infowindow.marker = marker;
-      infowindow.setContent('<div>' + marker.title + '</div>');
+  // Check to make sure the infowindow is not already opened on this marker.
+  if (infowindow.marker != marker) {
+    infowindow.marker = marker;
+    // Block of code to ajax call foursqaure API and get image
+    var title_generic = marker.title.split(" ")[0];
+    var url = "https://api.foursquare.com/v2/venues/search?ll=" +
+      marker.position.lat() + "," + marker.position.lng() + "&query=" + title_generic +
+      "&oauth_token=" + client_id + "&v=20180206";
+    $.ajax({
+      url: url,
+      success: function(response) {
+        var resposneObject = response.response.venues[0];
+        if(!resposneObject.location.address) {
+          resposneObject.location.address = "Not Available";
+        }
+        if(!resposneObject.location.city) {
+          resposneObject.location.city = "Giza";
+        }
+        infowindow.setContent('<div>' +
+          '<h4>' + marker.title + '</h4>' +
+          '<p><strong>Address:</strong>' + resposneObject.location.address + '</p>' +
+          '<p>' + resposneObject.location.city + ',' + resposneObject.location.country + '</p>' +
+          '</div>');
+      }
+    }).fail(function() {
+        // Send alert
+        alert(
+          "Sorry, the Foursquare API has experienced some errors. Please refresh your page to try again."
+        )
+      });
+      // End Of foursqaure API code
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function() {
@@ -64,18 +91,18 @@ function ViewModel() {
   }
 
   this.openFromList = function(event) {
-    for(var i = 0; i < self.markers.length; i++) {
+    for (var i = 0; i < self.markers.length; i++) {
       if (self.markers[i].title == event.title) {
         this.marker = self.markers[i];
         break;
       }
     }
-        self.populateInfoWindow(this.marker, self.largeInfoWindow);
-        this.marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout((function() {
-            this.marker.setAnimation(null);
-        }).bind(this), 700);
-    };
+    self.populateInfoWindow(this.marker, self.largeInfoWindow);
+    this.marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout((function() {
+      this.marker.setAnimation(null);
+    }).bind(this), 700);
+  };
 
   this.showListings = function() {
     this.bounds = new google.maps.LatLngBounds();
@@ -90,7 +117,7 @@ function ViewModel() {
   this.hideListings = function() {
     //this.showListings();
     for (var i = 0; i < this.markers.length; i++) {
-      for(var j = 0; j < undesiredLocations.length; j++) {
+      for (var j = 0; j < undesiredLocations.length; j++) {
         if (self.markers[i].title == undesiredLocations[j].title) {
           this.markers[i].setMap(null);
         }

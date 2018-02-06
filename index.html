@@ -14,6 +14,11 @@
 </head>
 
 <body>
+  <script>
+  function googleError() {
+    alert('google maps cannot load!');
+  }
+  </script>
   <div id="wrapper">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
@@ -47,7 +52,9 @@
   <!-- Script for ViewModel -->
   <script src="js/viewmodel.js"></script>
   <!-- Google Maps API -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAsxmy2aJkDMgfnnBDaGlD6iRbzW6XiBe4&callback=fireApp"></script>
+  <script
+    async defer src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAsxmy2aJkDMgfnnBDaGlD6iRbzW6XiBe4&callback=fireApp">  
+  </script>
 
 </body>
 
