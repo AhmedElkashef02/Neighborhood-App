@@ -30,10 +30,10 @@ function ViewModel() {
     this.showListings();
     this.filteredLocations([]);
     undesiredLocations = [];
-    var currentsearchTerm = this.searchTerm();
+    var currentsearchTerm = this.searchTerm().toLowerCase();
     // loop through list and make filtered list
     for (var i = 0; i < locations.length; i++) {
-      if (locations[i].title.indexOf(currentsearchTerm) !== -1) {
+      if (locations[i].title.toLowerCase().indexOf(currentsearchTerm) !== -1) {
         this.filteredLocations.push(locations[i]);
       } else {
         undesiredLocations.push(locations[i]);
@@ -177,6 +177,12 @@ function ViewModel() {
     }
   };
 
+}
+
+function handleGoogleError() {
+  if (window.console.error) {
+    alert("Error reaching Google Maps API, please refresh the page.");
+  }
 }
 
 // applyBindings and fire the app
