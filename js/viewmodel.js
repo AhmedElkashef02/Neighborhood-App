@@ -180,7 +180,7 @@ function ViewModel() {
 }
 
 function handleGoogleError() {
-  if (window.console.error) {
+  if (window.console.error.length > 0) {
     alert("Error reaching Google Maps API, please refresh the page.");
   }
 }
