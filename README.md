@@ -2,9 +2,11 @@
 
 Neighborhood Map Project is the penulatimate course related project in Udacity's nanodegree. This is a web application made using Model View View-Model architecture via the KnockoutJs Library and Google Maps API, and finally the FourSquare API for retreiving location specific information.
 
-# Installation:
+# Installation
+- Clone or download this repo
+- Run the index.html file in your browser and enjoy!
+You can make modifications to the locations and add your own in the `js/markers.js` file.
 
-Clone or download this repo and open the index.html file in your browser. You can also do modification on the list of places in the viewmodel.js file and use your own locations on the app!
 
 # How to Use:
 
